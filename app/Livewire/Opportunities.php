@@ -18,7 +18,6 @@ class Opportunities extends Component
     protected $listeners = ['updatingPerPage'];
 
     public $search = '';
-    public $isLoading = true;
 
     public function updatingPerPage()
     {
@@ -26,14 +25,12 @@ class Opportunities extends Component
     }
     public function render()
     {
-        if($this->search == '') {
+        if ($this->search == '') {
             $items = Item::paginate($this->perPage);
-        } 
-        else {
+        } else {
             $items = Item::where('name', 'like', '%' . $this->search . '%')->paginate($this->perPage);
         }
 
-        $this->isLoading = false;
         return view('livewire.opportunities', [
             'items' => $items
         ]);
